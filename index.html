@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 260px;
+      background: linear-gradient(180deg, #1e1e2f, #29294d);
+      color: #fff;
+      padding-top: 20px;
+      transition: width 0.3s ease;
+      overflow-x: hidden;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar.collapsed {
+      width: 70px;
+    }
+
+    /* Logo Styling */
+    .sidebar .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar .logo img {
+      width: 150px;
+      max-width: 80%;
+      transition: width 0.3s ease, transform 0.3s ease;
+    }
+
+    .sidebar.collapsed .logo img {
+      width: 50px;
+      transform: rotate(-10deg);
+    }
+
+    /* Menu List */
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* Hover glow effect */
+    .sidebar ul li:hover {
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: inset 3px 0 0 #00d9ff;
+    }
+
+    /* Icon Animations */
+    .sidebar ul li i {
+      margin-right: 15px;
+      font-size: 1.4rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar ul li:hover i {
+      transform: rotate(15deg) scale(1.2);
+      color: #00d9ff;
+    }
+
+    /* Hide text when collapsed */
+    .sidebar.collapsed ul li span {
+      display: none;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: absolute;
+      top: 20px;
+      right: -20px;
+      width: 40px;
+      height: 40px;
+      background: #1e1e2f;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: 2px solid #fff;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: #00d9ff;
+      transform: rotate(90deg);
+    }
+
+    /* Content */
+    .content {
+      margin-left: 260px;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+      width: 100%;
+    }
+
+    .sidebar.collapsed ~ .content {
+      margin-left: 70px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        height: 100%;
+        z-index: 100;
+        left: -260px;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .content {
+        margin-left: 0;
+      }
+      .sidebar.collapsed ~ .content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <!-- Your Fuse Logo -->
+      <img src="df51bae01cd310b9012c8b65de3c6b2f.jpg" alt="Logo">
+    </div>
+    <ul>
+      <li><i>🏠</i><span>Home</span></li>
+      <li><i>📄</i><span>About</span></li>
+      <li><i>📞</i><span>Contact</span></li>
+      <li><i>⚙️</i><span>Settings</span></li>
+      <li><i>❓</i><span>Help</span></li>
+    </ul>
+    <div class="toggle-btn" id="toggleBtn">☰</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h1>My Dashboard</h1>
+    <p>Click the button on the sidebar to open/close it.</p>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("toggleBtn");
+
+    toggleBtn.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle("active");
+      } else {
+        sidebar.classList.toggle("collapsed");
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth <= 768 && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.classList.remove("active");
+      }
+    });
+  </script>
+</body>
+</html>
